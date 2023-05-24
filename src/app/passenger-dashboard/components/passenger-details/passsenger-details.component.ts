@@ -17,9 +17,6 @@ import { Passenger } from '../../models/passenger.interfase';
     `
 })
 export class PassengerDetailsComponent implements OnChanges{
-    ngOnChanges(changes: SimpleChanges): void {
-        console.log(changes);
-    }
     @Input()
     detail!: Passenger;
     isEdit:boolean=false;
@@ -28,7 +25,10 @@ export class PassengerDetailsComponent implements OnChanges{
     editPass:EventEmitter<Passenger>=new EventEmitter();
     @Output()
     removePass:EventEmitter<Passenger>=new EventEmitter();
-
+    
+    ngOnChanges(changes: SimpleChanges): void {
+        this.detail=Object.assign({},changes['detail'].currentValue);
+        }
     onNameChange(name:string){
         this.detail.name=name;
     }
