@@ -1,6 +1,7 @@
 import {Component,OnInit} from "@angular/core";
 import { Passenger } from "../../models/passenger.interfase";
 import { PassengerDashboardService } from "../../passenger-dashboard.service";
+import {Observable} from "rxjs";
 @Component({
     selector:'passenger-dashboard',
     styleUrls:['pasenger-dashboard.component.css'],
@@ -23,7 +24,11 @@ export class PassengerDashboardComponent implements OnInit{
 
     }
     ngOnInit(): void {
-        this.passengers=this.passengerService.getPassengers();  
+        this.passengerService
+        .getPassengers()
+        .subscribe((data:Passenger[])=>{
+          this.passengers=data;
+        });  
     }
     editPass(passengerEdit:Passenger){
       this.passengers=this.passengers.map((passenger:Passenger)=>{
